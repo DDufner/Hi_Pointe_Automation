@@ -20,13 +20,24 @@ driver = webdriver.Firefox(service=service)
 action=ActionChains(driver)
 
 
-driver.get("https://hipointedrivein.com/menu/")
+driver.get("https://hipointedrivein.appfront.app/?openSignup=true")
 try:
     time.sleep(2)
-    driver.find_element(By.XPATH, "//img[@src='https://hipointedrivein.com/wp-content/uploads/2017/04/hpdi_post-500x500.jpg']").click()
-    time.sleep(5)
-
-    print("elements are present.")
+    # driver.find_element(By.XPATH, "//a[contains(text(),'Login')]").click()
+    # driver.refresh()
+    # time.sleep(2)
+    # driver.find_element(By.XPATH, "//button[@id='close-btn']").click()
+    # driver.refresh()
+    # time.sleep(2)
+    driver.find_element(By.XPATH, "//input[@class='MuiSelect-nativeInput mui-1k3x8v3']").click()
+    
+    driver.find_element(By.XPATH, "//a[@class='index-module--Button--6cadf noselect index-module--Centered--18426']").click()
+    driver.find_element(By.XPATH, "//a[contains(text(),'Terms of Service')]").click()
+    driver.find_element(By.XPATH, "//a[contains(text(),'Privacy Policy')]").click()
+    driver.find_element(By.XPATH, "//small[contains(text(),'Skip')]").click()   
+    time.sleep(10)
+    assert True
+    print("All elements found")
 except:
     print("element is not clickable") 
 time.sleep(5)

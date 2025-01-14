@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service 
 from selenium.webdriver.common.by import By  
@@ -14,9 +16,9 @@ action=ActionChains(driver)
 
 class MainPage:
     main_page_url = "https://hipointedrivein.com/"
-
+    submit_application_banner_close_button = "//a[@class='close']"
     #main view, links below still need to be tested and confirmed
-    navigation_menu_icon = "//strong[contains(text(),'Nav')]"
+    navigation_menu_icon = "//a[@id='nav-trigger']" 
     order_online_link = "//a[@id='order-online-trigger']"
     food_and_drink_image = "//a[@id='home-grid-block-1']" 
     our_story_image = "//a[@id='home-grid-block-2']"
@@ -49,8 +51,11 @@ class MainPage:
         self.driver = driver
 
     # nav modal links
+    # def closeSubmitApplicationBanner(self):
+    #     self.driver.find_element(By.XPATH, value=self.submit_application_banner_close_button).click()
+
     def clickElement(self, element):
-        driver.find_element(By.XPATH, value=element).click()
+        self.driver.find_element(By.XPATH, value=element).click()
 
     def clickElementAndBack(self, element):
         driver.find_element(By.XPATH, value=element).click()
@@ -74,8 +79,8 @@ class MainPage:
         assert True
 
     #NOTE: below methods are most likely not needed and replaced by 'clickecElement' method above.
-    # def clickNavigation(self):
-    #     self.driver.find_element(By.XPATH, value=self.navigation_menu_icon).click()
+    def clickNavigation(self):
+        driver.find_element(By.XPATH, value=self.navigation_menu_icon).click()
 
     # def clickOurStoryNavModal(self):
     #     self.driver.find_element(By.XPATH, value=self.our_story_modal_link).click()

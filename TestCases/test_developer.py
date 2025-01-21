@@ -5,6 +5,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By  
 import time
 
+
 #Chome option
 #service = Service(executable_path='/Users/dominickdufner/Coding/chromedriver')
 #chrome_options = Options()
@@ -20,22 +21,17 @@ driver = webdriver.Firefox(service=service)
 action=ActionChains(driver)
 
 
-driver.get("https://hipointedrivein.appfront.app/?openSignup=true")
+driver.get("https://hipointedrivein.appfront.app/")
 try:
+
     time.sleep(2)
-    # driver.find_element(By.XPATH, "//a[contains(text(),'Login')]").click()
-    # driver.refresh()
-    # time.sleep(2)
-    # driver.find_element(By.XPATH, "//button[@id='close-btn']").click()
-    # driver.refresh()
-    # time.sleep(2)
-    driver.find_element(By.XPATH, "//input[@class='MuiSelect-nativeInput mui-1k3x8v3']").click()
-    
-    driver.find_element(By.XPATH, "//a[@class='index-module--Button--6cadf noselect index-module--Centered--18426']").click()
-    driver.find_element(By.XPATH, "//a[contains(text(),'Terms of Service')]").click()
-    driver.find_element(By.XPATH, "//a[contains(text(),'Privacy Policy')]").click()
-    driver.find_element(By.XPATH, "//small[contains(text(),'Skip')]").click()   
-    time.sleep(10)
+    driver.find_element(By.XPATH, "//a/span[contains(text(),'My Rewards')]").click()
+    driver.find_element(By.XPATH, "//span/input[@name='phone']").send_keys("123")
+    driver.find_element(By.XPATH, "//div/a[contains(text(),'Login')]").click()
+    time.sleep(5)
+    driver.find_element(By.XPATH, "//div/p/a[contains(text(),'Sign up')]").click()
+    #driver.find_element(By.XPATH, "//div[@class='index-module--ListCardContent--b2979']//span[contains(text(),'Cottleville')]").click()
+    time.sleep(5)
     assert True
     print("All elements found")
 except:

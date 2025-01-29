@@ -25,11 +25,9 @@ driver.get("https://hipointedrivein.appfront.app/")
 try:
 
     time.sleep(2)
-    driver.find_element(By.XPATH, "//a/span[contains(text(),'My Rewards')]").click()
-    driver.find_element(By.XPATH, "//span/input[@name='phone']").send_keys("123")
-    driver.find_element(By.XPATH, "//div/a[contains(text(),'Login')]").click()
+    driver.find_element(By.XPATH, "//a/span[contains(text(),'Reorder')]").click()
+    driver.find_element(By.XPATH, "//div/p[contains(text(),'Login to see your previous orders')]")
     time.sleep(5)
-    driver.find_element(By.XPATH, "//div/p/a[contains(text(),'Sign up')]").click()
     #driver.find_element(By.XPATH, "//div[@class='index-module--ListCardContent--b2979']//span[contains(text(),'Cottleville')]").click()
     time.sleep(5)
     assert True

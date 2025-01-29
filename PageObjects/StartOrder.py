@@ -1,6 +1,9 @@
 from selenium import webdriver
+from urllib.parse import quote
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service 
+from selenium.webdriver.common.by import By  
+from selenium.common.exceptions import NoSuchElementException
 
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -10,9 +13,11 @@ options = webdriver.FirefoxOptions()
 driver = webdriver.Firefox(service=service)
 action = ActionChains(driver)
 
+
+
 class StartOrder: 
-    order_online_url = "https://hipointedrivein.appfront.app/"
-    order_online_url_with_get_started_modal = "https://hipointedrivein.appfront.app/?openSignup=true"
+    start_order_url = "https://hipointedrivein.appfront.app/"
+    start_order_url_with_get_started_modal = "https://hipointedrivein.appfront.app/?openSignup=true"
     
     #sign up modal elements
     signup_modal = "//div[@class='slick-slide slick-active slick-current']//div//div[@tabindex='-1']"
@@ -33,45 +38,66 @@ class StartOrder:
     back_button = "//a/span[contains(text(),'Back')]" #NOTE: this only appears after naving to another page
     profile_login_button = "//div[@class='HeaderUserProfileLink-module--user--c70d8']"
     contact_us_button = "//div[@class='index-module--AttachedContent--212be index-module--TopSideButtons--965e5']//a[contains(text(),'Contact Us')]"
+    contact_us_url = "https://hipointedrivein.appfront.app/contact-us/"
     send_a_gift_card_button = "//div[@class='index-module--AttachedContent--212be index-module--TopSideButtons--965e5']//a[contains(text(),'Send a Gift Card')]"
     image_button = "//img[@class='MuiAvatar-img mui-1hy9t21']"
     image_close_button = "//*[@class='MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-vubbuv']"
 
     #start order left nav elements
     start_new_order_button = "//a/span[contains(text(),'Start New Order')]"
+    serving_options_url = "https://hipointedrivein.appfront.app/serving-options/"
     pickup_button = "//a/div/span[contains(text(),'Pickup')]"
     delivery_button = "//a/div/span[contains(text(),'Delivery')]" 
     reorder_button = "//a/span[contains(text(),'Reorder')]"
     my_rewards_button = "//a/span[contains(text(),'My Rewards')]"
 
     #reorder modal elements
-    login_modal_close_button = "//div/button[@id='close-btn']"
-    login_modal_phone_number_field = "//span/input[@name='phone']"
-    login_modal_login_button = "//div/a[contains(text(),'Login')]"
-    login_modal_sign_up_button = "//div/p/a[contains(text(),'Sign up')]"
+    close_button_reorder_modal = "//div/button[@id='close-btn']"
+    modal_title_reorder_modal = "//div/p[contains(text(),'Login to see your previous orders')]"
+    phone_number_field_reorder_modal = "//span/input[@name='phone']"
+    login_button_reorder_modal = "//div/a[contains(text(),'Login')]"
+    sign_up_button_reorder_modal = "//div/p/a[contains(text(),'Sign up')]"
 
     #my rewards modal elements 
-    my_rewards_modal_close_button = "//button[@id='close-btn']"
-    my_rewards_modal_phone_number_field = "//span/input[@name='phone']"
-    my_rewards_modal_login_button = "//div/a[contains(text(),'Login')]"
-    my_rewards_modal_sign_up_button = "//div/p/a[contains(text(),'Sign up')]"
+    close_button_my_rewards_modal = "//button[@id='close-btn']"
+    modal_title_my_rewards_modal = "//div/p[contains(text(),'Login to see your rewards and feel the love')]"
+    phone_number_field_my_rewards_modal = "//span/input[@name='phone']"
+    login_button_my_rewards_modal = "//div/a[contains(text(),'Login')]"
+    sign_up_button_my_rewards_modal = "//div/p/a[contains(text(),'Sign up')]"
 
     #login modal elements
-    login_modal_close_button = "//button[@id='close-btn']"
-    login_modal_phone_number_field = "//input[@type='tel']"
-    login_modal_login_button = "//div/a[contains(text(),'Login')]"
-    login_modal_sign_up_button = "//div/p/a[contains(text(),'Sign up')]"
-    login_modal_skip_button = "//small[contains(text(),'Skip')]"    
+    close_button_login_modal = "//button[@id='close-btn']"
+    modal_title_login_modal = "//div/p[contains(text(),'Login for faster ordering and special rewards.')]"
+    phone_number_field_login_modal = "//input[@type='tel']"
+    login_button_login_modal = "//div/a[contains(text(),'Login')]"
+    sign_up_button_login_modal = "//div/p/a[contains(text(),'Sign up')]"
+    skip_button_login_modal = "//small[contains(text(),'Skip')]"    
 
     #links at bottom of page
     powered_by_appfront_link = "//span[contains(text(),'Powered by')]"
+    powered_by_appfront_url = "https://www.appfront.ai/?src=pwrdby"
     terms_of_service_link = "//span[contains(text(),'Terms of Service')]"
-    privacy_policy_link = "//span[contains(text(),'Privacy Policy')]" 
 
-    #NOTE: Need to move these to different object class
-    enter_address_field = "//div/input[@id='mui-19']"
-    enter_address_field2 = "//div/input[@placeholder='Enter city, address or zip ']"
-    locate_me_button = "//button/span[contains(text(),'Locate Me')]" #NOTE: this element will need a 'wait until clickable' function
-    order_for_later_button = "//div/a[contains(text(),'Order for later')]" #NOTE: only available at off hours.  May need to create one for each location.
-    location_select_location_button = "//div[@class='index-module--ListItemActions--1ae4c']" #NOTE: General, will need to index for each location. might be able to use locations names with this xpath nested in it instead of using indexing. try child to parent association?
-    cottleville = "//div[@class='index-module--ListCardContent--b2979']//span[contains(text(),'Cottleville')]"
+    tos_base_url = "https://hipointedrivein.appfront.app/tos/"
+    back_path = "2F/"
+    encoded_back_path = quote(back_path)
+    terms_of_service_link_url_2 = f"{tos_base_url}?backPath=%{encoded_back_path}"
+
+    privacy_policy_link = "//span[contains(text(),'Privacy Policy')]" 
+    privacy_policy_link_url = "https://hipointedrivein.appfront.app/privacy-policy/"
+    privacy_policy_link_url_2 = "https://hipointedrivein.appfront.app/privacy-policy/?backPath=%2F/"
+    #NOTE: for fixing URL issue on privacy policy and tos URLs: https://stackoverflow.com/questions/1695183/how-can-i-percent-encode-url-parameters-in-python 
+    def __init__(self, driver): #constructor that invokes objects for main page class.  
+        self.driver = driver
+    
+    def clickElement(self, element):
+        self.driver.find_element(By.XPATH, value=element).click()
+
+    def confirmElementExists(self, modal):
+        try:
+            modal = self.driver.find_element(By.XPATH, value=modal)
+            assert True
+        except NoSuchElementException:
+            print("Target element not found.")
+            assert False    
+

@@ -16,14 +16,14 @@ class UniversalMethods:
     def __init__(self, driver): #constructor that invokes objects for main page class.  
         self.driver = driver
 
-    def clickElement(self, element):
+    def click_element(self, element):
         self.driver.find_element(By.XPATH, value=element).click()
 
-    def clickElementAndBack(self, element):
+    def click_element_and_back(self, element):
         driver.find_element(By.XPATH, value=element).click()
         driver.back()
 
-    def confirmElementExists(self, target_element):
+    def confirm_element_exists(self, target_element):
         try:
             target_element = self.driver.find_element(By.XPATH, value=target_element)
             driver.quit()
@@ -32,14 +32,14 @@ class UniversalMethods:
             print("Element not found.")
             assert False  
 
-    def confirmCorrectURL(self, target_url):
+    def confirm_correct_URL(self, target_url):
         if self.driver.current_url == target_url:
             print("URL is correct!")
             assert True
         else:
             assert False
 
-    def confirmListOfElementsExist(self, target_elements_list):
+    def confirm_list_of_elements_exist(self, target_elements_list):
         for item in target_elements_list:
             try:
                 item = self.driver.find_element(By.XPATH, value=item)

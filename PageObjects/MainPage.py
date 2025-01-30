@@ -15,9 +15,11 @@ driver = webdriver.Firefox(service=service)
 action=ActionChains(driver)
 
 class MainPage:
+    def __init__(self, driver): #constructor that invokes objects for main page class.  
+        self.driver = driver
+
     main_page_url = "https://hipointedrivein.com/"
     submit_application_banner_close_button = "//a[@class='close']"
-    #main view, links below still need to be tested and confirmed
     navigation_menu_icon = "//a[@id='nav-trigger']" 
     order_online_link = "//a[@id='order-online-trigger']"
     food_and_drink_image = "//a[@id='home-grid-block-1']" 
@@ -39,81 +41,10 @@ class MainPage:
 
     instagram_modal_icon_modal_link = "//div[@id='home-grid-social']//span[@class='fa fa-instagram']"
     facebook_modal_icon_modal_link = "//div[@id='home-grid-social']//span[@class='fa fa-facebook']"
-    twitter_modal_icon_modal_link = "//div[@id='home-grid-social']//span[@class='fa fa-twitter']']"
+    twitter_modal_icon_modal_link = "//div[@class='main-nav-right main-nav-panel']//ul[@class='social-nav']//li[@class='social-nav-twitter']"
 
     #List for testing of all navigation modal links
     navigation_modal_links_list = [our_story_modal_link, food_and_drink_modal_link, locations_modal_link, catering_modal_link, 
                              order_online_modal_link, in_the_press_modal_link, job_openings_modal_link, buy_gift_cards_modal_link, 
                              instagram_modal_icon_modal_link, facebook_modal_icon_modal_link, twitter_modal_icon_modal_link, 
                              hi_pointe_icon_modal_link]
-
-    def __init__(self, driver): #constructor that invokes objects for main page class.  
-        self.driver = driver
-
-    # nav modal links
-    # def closeSubmitApplicationBanner(self):
-    #     self.driver.find_element(By.XPATH, value=self.submit_application_banner_close_button).click()
-
-    def clickElement(self, element):
-        self.driver.find_element(By.XPATH, value=element).click()
-
-    def clickElementAndBack(self, element):
-        driver.find_element(By.XPATH, value=element).click()
-        driver.back()
-
-    def confirmElementExists(self, target_element):
-        try:
-            target_element = self.driver.find_element(By.XPATH, value=target_element)
-            driver.quit()
-            assert True
-        except NoSuchElementException:
-            print("Element not found.")
-            assert False  
-
-    def confirmListOfElementsExist(self, target_elements_list):
-        for item in target_elements_list:
-            try:
-                item = self.driver.find_element(By.XPATH, value=item)
-            except NoSuchElementException:
-                assert False, f"Element not found: {item}"
-        assert True
-
-    #NOTE: below methods are most likely not needed and replaced by 'clickecElement' method above.
-    def clickNavigation(self):
-        driver.find_element(By.XPATH, value=self.navigation_menu_icon).click()
-
-    # def clickOurStoryNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.our_story_modal_link).click()
-
-    # def clickFoodAndDrinkNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.food_and_drink_modal_link).click()
-
-    # def clickLocationsNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.locations_modal_link).click() 
-    
-    # def clickCateringNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.catering_modal_link).click()
-
-    # def clickOrderOnlineNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.order_online_modal_link).click()
-
-    # def clickInThePressNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.in_the_press_modal_link).click()
-
-    # def clickJobOpeningsNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.job_openings_modal_link).click()
-    
-    # def clickBuyGiftCardsNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.buy_gift_cards_modal_link).click()
-    # #social media icons in nav modal
-    # def clickInstagramNavModal(self):   
-    #     self.driver.find_element(By.XPATH, value=self.instagram_modal_icon_modal_link).click()
-    
-    # def clickFacebookNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.facebook_modal_icon_modal_link).click()
-
-    # def clickTwitterNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.twitter_modal_icon_modal_link).click()
-
-    # def clickHiPointeNavModal(self):
-    #     self.driver.find_element(By.XPATH, value=self.hi_pointe_icon_modal_link).click()

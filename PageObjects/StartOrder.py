@@ -87,17 +87,3 @@ class StartOrder:
     privacy_policy_link_url = "https://hipointedrivein.appfront.app/privacy-policy/"
     privacy_policy_link_url_2 = "https://hipointedrivein.appfront.app/privacy-policy/?backPath=%2F/"
     #NOTE: for fixing URL issue on privacy policy and tos URLs: https://stackoverflow.com/questions/1695183/how-can-i-percent-encode-url-parameters-in-python 
-    def __init__(self, driver): #constructor that invokes objects for main page class.  
-        self.driver = driver
-    
-    def clickElement(self, element):
-        self.driver.find_element(By.XPATH, value=element).click()
-
-    def confirmElementExists(self, modal):
-        try:
-            modal = self.driver.find_element(By.XPATH, value=modal)
-            assert True
-        except NoSuchElementException:
-            print("Target element not found.")
-            assert False    
-

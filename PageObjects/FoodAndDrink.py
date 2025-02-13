@@ -12,9 +12,7 @@ action = ActionChains(driver)
 
 class FoodAndDrink:
     food_and_drink_url = "https://hipointedrivein.com/menu/"
-
     instagram_icon_food_and_drink = "//img[@src='https://hipointedrivein.com/wp-content/uploads/2017/04/hpdi_post-500x500.jpg']"
-
     burgers_menu_section_header = "//h2[contains(text(),'Burgers')]"
     sandwiches_menu_section_header = "//h2[contains(text(),'Sandwiches')]"
     salads_menu_section_header = "//h2[contains(text(),'Salads')]"

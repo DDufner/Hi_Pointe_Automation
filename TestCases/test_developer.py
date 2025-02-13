@@ -21,19 +21,20 @@ driver = webdriver.Firefox(service=service)
 action=ActionChains(driver)
 
 
-driver.get("https://hipointedrivein.appfront.app/")
+driver.get("https://hipointedrivein.appfront.app/find-location/?servingOptionType=delivery/")
 try:
-
+    print("test start")
     time.sleep(2)
-    driver.find_element(By.XPATH, "//a/span[contains(text(),'Reorder')]").click()
-    driver.find_element(By.XPATH, "//div/p[contains(text(),'Login to see your previous orders')]")
+    driver.find_element(By.XPATH, "//input[@id='mui-3']").send_keys("1110 Stone Hill Hwy, Hermann, MO 65041")
     time.sleep(5)
-    #driver.find_element(By.XPATH, "//div[@class='index-module--ListCardContent--b2979']//span[contains(text(),'Cottleville')]").click()
+    print("typed address on field")
+    driver.find_element(By.XPATH, "//ul//li[@id='react-autowhatever-1--item-0']").click()
     time.sleep(5)
+    found_element = driver.find_element(By.XPATH, "//div[@class='index-module--ErrorMessage--f938d']")
     assert True
-    print("All elements found")
+    print("success!")
 except:
-    print("element is not clickable") 
+    print("something failed") 
 time.sleep(5)
 
 driver.quit()

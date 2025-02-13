@@ -13,9 +13,11 @@ options = webdriver.FirefoxOptions()
 driver = webdriver.Firefox(service=service)
 action = ActionChains(driver)
 
-
-
 class StartOrder: 
+    def __init__(self, driver): #constructor that invokes objects for main page class.  
+        self.driver = driver
+        print("start order invocationc")
+        
     start_order_url = "https://hipointedrivein.appfront.app/"
     start_order_url_with_get_started_modal = "https://hipointedrivein.appfront.app/?openSignup=true"
     
@@ -38,10 +40,10 @@ class StartOrder:
     back_button = "//a/span[contains(text(),'Back')]" #NOTE: this only appears after naving to another page
     profile_login_button = "//div[@class='HeaderUserProfileLink-module--user--c70d8']"
     contact_us_button = "//div[@class='index-module--AttachedContent--212be index-module--TopSideButtons--965e5']//a[contains(text(),'Contact Us')]"
-    contact_us_url = "https://hipointedrivein.appfront.app/contact-us/"
     send_a_gift_card_button = "//div[@class='index-module--AttachedContent--212be index-module--TopSideButtons--965e5']//a[contains(text(),'Send a Gift Card')]"
-    image_button = "//img[@class='MuiAvatar-img mui-1hy9t21']"
-    image_close_button = "//*[@class='MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-vubbuv']"
+    food_image_button = "//img[@class='MuiAvatar-img mui-1hy9t21']"
+    food_image_close_button = "//*[@class='MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-vubbuv']"
+    food_image_text_element = "//p[@class='MuiTypography-root MuiTypography-body1 mui-1md3eco']"
 
     #start order left nav elements
     start_new_order_button = "//a/span[contains(text(),'Start New Order')]"
@@ -77,13 +79,29 @@ class StartOrder:
     powered_by_appfront_link = "//span[contains(text(),'Powered by')]"
     powered_by_appfront_url = "https://www.appfront.ai/?src=pwrdby"
     terms_of_service_link = "//span[contains(text(),'Terms of Service')]"
-
+    #below is work done to try and fix URL encoding issue   
     tos_base_url = "https://hipointedrivein.appfront.app/tos/"
     back_path = "2F/"
     encoded_back_path = quote(back_path)
     terms_of_service_link_url_2 = f"{tos_base_url}?backPath=%{encoded_back_path}"
 
     privacy_policy_link = "//span[contains(text(),'Privacy Policy')]" 
-    privacy_policy_link_url = "https://hipointedrivein.appfront.app/privacy-policy/"
-    privacy_policy_link_url_2 = "https://hipointedrivein.appfront.app/privacy-policy/?backPath=%2F/"
+    privacy_policy_link_url = "https://hipointedrivein.appfront.app/privacy-policy/?backPath=%2F" + quote ("/", safe='/') 
+    #CHECK THIS VALUE: https://hipointedrivein.appfront.app/privacy-policy?backPath=%2F%2F
+    privacy_policy_link_url_1 = "https://hipointedrivein.appfront.app/privacy-policy?backPath=" + quote ("/", safe='/') 
+    #result: CHECK THIS VALUE: https://hipointedrivein.appfront.app/privacy-policy?backPath=/
+    privacy_policy_link_url_3 = "https://hipointedrivein.appfront.app/privacy-policy?backPath" + quote ("=/", safe='/') 
+    #CHECK THIS VALUE: https://hipointedrivein.appfront.app/privacy-policy?backPath%3D/
+    privacy_policy_link_url_4 = quote ("https://hipointedrivein.appfront.app/privacy-policy/?backPath=%2F/", safe="%2F")
+    #CHECK THIS VALUE: https%3A%2F%2Fhipointedrivein.appfront.app%2Fprivacy-policy%2F%3FbackPath%3D%2F%2F
+    privacy_policy_link_url_5 = "https://hipointedrivein.appfront.app/privacy-policy?backPath=" + quote ("%2F/", safe='%2F') 
+    #CHECK THIS VALUE: https://hipointedrivein.appfront.app/privacy-policy?backPath=%2F%2F
+    privacy_policy_link_url_6 = "https://hipointedrivein.appfront.app/privacy-policy?backPath=" + quote ("%2F/", safe='%') 
+    #CHECK THIS VALUE: https://hipointedrivein.appfront.app/privacy-policy?backPath=%252F/
     #NOTE: for fixing URL issue on privacy policy and tos URLs: https://stackoverflow.com/questions/1695183/how-can-i-percent-encode-url-parameters-in-python 
+    #https://www.youtube.com/watch?v=fGxt2nRWzYA 
+    #or this for decrypting: https://www.lambdatest.com/blog/python-url-decode/
+    back_path = "%2F"
+    encoded_back_path = quote(back_path, safe='')
+    privacy_policy_link_url_cp = f"https://hipointedrivein.appfront.app/privacy-policy/?backPath={encoded_back_path}"+"/"
+    location_name_delivery = "//div[@class='index-module--ListCard--b1bd3 index-module--HasErrors--60a1c']//div[@class='index-module--ListCardTitle--a9e35']"
